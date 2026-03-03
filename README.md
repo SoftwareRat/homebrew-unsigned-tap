@@ -1,11 +1,16 @@
 # SoftwareRat/unsigned-tap
 
-A Homebrew tap providing casks for macOS applications that are unsigned or unnotarized and therefore rejected by the official [Homebrew/homebrew-cask](https://github.com/Homebrew/homebrew-cask) repository.
+A Homebrew tap for macOS applications that are unsigned or unnotarized — and therefore rejected by the official [Homebrew/homebrew-cask](https://github.com/Homebrew/homebrew-cask) repository.
 
-Many quality open-source applications are built without Apple code-signing or notarization. macOS Gatekeeper blocks these apps at launch, and Homebrew Cask does not accept them. This tap fills that gap: it hosts the casks, automatically removes the quarantine attribute after installation, and keeps cask definitions up to date.
+## Why this tap exists
 
-> **⚠️ Security notice**
-> Installing unsigned or unnotarized software carries inherent risk. These applications have **not** been reviewed or verified by Apple. You are responsible for evaluating the trustworthiness of each application before installing it. Review the upstream project and the cask definition in the `Casks/` directory before proceeding.
+Apple requires developers to pay $99/year for a Developer ID certificate and submit every release to Apple's notarization service before macOS will run it without warnings. Homebrew Cask enforces this gate by refusing to host any cask that fails a Gatekeeper check — not because the software is broken or malicious, but purely because it lacks Apple's paid stamp of approval.
+
+The result: perfectly functional, well-maintained open-source applications get quietly dropped from Homebrew the moment their maintainers miss a notarization step or choose not to pay Apple's annual fee. Users who relied on those casks lose them with no warning.
+
+This tap says no to that. It hosts the rejected casks, automatically strips the quarantine attribute after installation so apps launch normally, and keeps definitions up to date. You own your Mac. You decide what runs on it.
+
+> **Note:** "Unsigned" and "unnotarized" mean the developer has not paid Apple for a signing certificate or run the binary through Apple's notarization pipeline — not that the software is inherently untrustworthy. As with any software, use your own judgement: check the upstream project, read the cask definition in `Casks/`, and decide for yourself.
 
 ---
 
