@@ -1,104 +1,38 @@
-# About
+# SoftwareRat/homebrew-unsigned-tap
 
-A Homebrew package manager tap for various Casks not in the main tap.
+Homebrew devs bend over backwards for Apple's Gatekeeper bullshit. They reject any app Apple didn't stamp "safe." Unsigned? Gone. Unnotarized? Deleted. This tap says fuck that.
 
-They are given the prefix `other-` to make explicit they are from this tap specifically, and for easy dependency management.
+## Apple's Scam Exposed
 
-The Casks have the following properties:
+Pay Apple $99/year or your app gets blocked on Macs you own. Homebrew enforces this racket—won't touch anything without Apple's kiss. Meanwhile, the apps work perfectly until Gatekeeper cockblocks them.
 
-## would be rejected from main homebrew-cask repository
+We host the rejects: unsigned gems, unnotarized tools, casks Homebrew killed. Auto-strip quarantine so they launch clean. No System Settings dance.
 
-e.g.
+## Fight Back. This Is How It Starts.
 
-- unnotarized
-- unsigned
+Homebrew became Apple's bitch. We're the fix. Install real software without corporate permission slips. Users run their own damn machines. Developers skip the extortion.
 
-Signing requires someone to be in the Apple Developer Program, which at present is 99 USD per member per year, this financial and labour overhead, explains why apps are not always signed, especially with smaller developers, or those not focusing on Apple development (providing for other OSs).
+Got something Homebrew axed? Fork it here. Explain Apple's rejection. Build the free alternative.
 
-## being depracated
+## Your Disclaimer
 
-these are Casks that will be disabled soon or are already disabled....
+This bypasses Homebrew's "security." Your Mac. Run what you want.
 
-the disabled messaged are commented out, to retain this information
-
-e.g.
-
-`disable! date: "2026-09-01", because: :fails_gatekeeper_check`
-
-we begin just by using the existing code (removing the disable setting of course) and it is open to updates from myself or contributions.
-
-## other
-
-Other apps may be added for expediency, but it may be best to endeavour to add it to the official repository if possible.
-
-## responsibility of use
-
-The main [homebrew-cask](https://github.com/Homebrew/homebrew-cask) will not allow unsigned Casks on Apple Silicon M series according to their [acceptable casks policy](https://docs.brew.sh/Acceptable-Casks).
-
-This tap, is meant to store software, where there is a degree of trust, but it has not been signed.  That being said YOU take full responsibility, for using any software in this tap.
-
-# Tap (optional)
-
-Think of a "tap" like a package repository.
-
-## Add
-
+## Get It
 
 ```bash
-brew tap josephalton/other-cask-tap
-```
-
-## List and confirm
-
-```bash
-brew tap
-```
-
-# Remove
-
-```bash
-brew untap josephalton/other-cask-tap
-```
-## Update
-
-To make sure you are upto date with the Casks in this tap, periodically do this:
-
-```bash
+brew tap SoftwareRat/homebrew-unsigned-tap
+brew tap  # Proof
+brew install --cask alacritty
+# or: brew install --cask SoftwareRat/homebrew-unsigned-tap/alacritty
 brew update
 ```
 
-(will update ALL taps)
-
-# Casks
-
-## Install a cask
-
-Casks are like the programs within the specific tap.
-
-I have given the prefix `other-` to differentiate this from the main Homebrew tap (and other taps).
-
-So install like so:
-
-(for instance):
+## Bail Out
 
 ```bash
-brew install --cask other-wine-stable
+brew untap SoftwareRat/homebrew-unsigned-tap
+brew remove --cask alacritty
 ```
 
-however, to be extra careful you can also give the full-path
-
-```bash
-brew install --cask josephalton/other-cask-tap/other-wine-stable
-```
-
-## Uninstall
-
-e.g.
-
-```bash
-brew remove other-wine-stable
-```
-
-# Contributing
-
-Contributions/suggestions are welcome. A comment above the Cask .rb file explaining why it is not being added to the main homebrew-cask repository would be useful.
+Apple's turning Macs into locked iPads. Homebrew helps. Time to break free.
