@@ -1,0 +1,20 @@
+# Ensure consistent line endings for everyone
+* text=auto eol=lf
+
+# Ruby cask files
+*.rb text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# YAML
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Shell scripts
+*.sh text eol=lf
+
+# Binary files
+*.dmg binary
+*.pkg binary
+*.zip binary

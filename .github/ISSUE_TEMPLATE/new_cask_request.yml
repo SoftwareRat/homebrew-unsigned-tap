@@ -1,0 +1,76 @@
+name: New Cask Request
+description: Request a new unsigned/unnotarized cask
+labels: ["new cask"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request that a new unsigned or unnotarized cask be added to the tap.
+        Please provide as much detail as possible so the cask can be created quickly.
+
+  - type: input
+    id: app_name
+    attributes:
+      label: Application name
+      description: Full name of the application
+      placeholder: My App
+    validations:
+      required: true
+
+  - type: input
+    id: homepage
+    attributes:
+      label: Homepage URL
+      description: Official homepage of the application
+      placeholder: "https://example.com"
+    validations:
+      required: true
+
+  - type: input
+    id: download_url
+    attributes:
+      label: Download URL
+      description: Direct link to the macOS installer/disk image
+      placeholder: "https://example.com/releases/myapp-1.0.0.dmg"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Version string for the download
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: sha256
+    attributes:
+      label: SHA-256 checksum
+      description: |
+        Run `curl -L "<download_url>" | shasum -a 256` to get this value
+      placeholder: "abc123..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale for inclusion
+      description: >
+        Why should this app be in this tap?
+        What problem does it solve? Why is it not in the official homebrew-cask?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: unsigned_confirmation
+    attributes:
+      label: Unsigned / unnotarized confirmation
+      options:
+        - label: >
+            This application is unsigned or unnotarized (or was removed from
+            homebrew-cask because of signing/notarization requirements) and
+            therefore belongs in this tap.
+          required: true
