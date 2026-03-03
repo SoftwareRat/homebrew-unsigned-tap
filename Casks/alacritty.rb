@@ -28,7 +28,7 @@ cask "alacritty" do
   fish_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/alacritty.fish"
   zsh_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/_alacritty"
 
-    postflight do
+  postflight do
     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Alacritty.app"
   end
 
