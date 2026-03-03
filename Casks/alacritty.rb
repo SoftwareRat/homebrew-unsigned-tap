@@ -12,8 +12,6 @@ cask "alacritty" do
     strategy :github_latest
   end
 
-  #disable! date: "2026-09-01", because: :fails_gatekeeper_check
-
   depends_on macos: ">= :big_sur"
 
   app "Alacritty.app"
@@ -29,6 +27,10 @@ cask "alacritty" do
   bash_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/alacritty.bash"
   fish_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/alacritty.fish"
   zsh_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/_alacritty"
+
+    postflight do
+    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Alacritty.app"
+  end
 
   zap trash: [
     "~/Library/Preferences/org.alacritty.plist",
