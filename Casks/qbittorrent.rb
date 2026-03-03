@@ -1,4 +1,4 @@
-cask "other-qbittorrent" do
+cask "qbittorrent" do
   on_catalina :or_older do
     version "4.6.7"
     sha256 "0b1051af73562fc3f7c0c71abd27c3433ad238fbca0c4612f554db35be3eba6e"

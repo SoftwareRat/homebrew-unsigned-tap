@@ -1,4 +1,4 @@
-cask "other-lyx" do
+cask "lyx" do
   version "2.4.4"
   sha256 "8f92befe0df9da6f251a5a04a8ef536a03a354cfbb4e6f87dd80e76fa92871c0"
 

@@ -1,4 +1,4 @@
-cask "other-qownnotes" do
+cask "qownnotes" do
   version "26.1.5"
   sha256 "873ad73bd231ff97df213dd6696308b5f04704b980a98b5a59b2fa822a656521"
 

@@ -1,4 +1,4 @@
-cask "other-texstudio" do
+cask "texstudio" do
   arch arm: "-m1"
 
   version "4.9.1"

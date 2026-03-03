@@ -1,4 +1,4 @@
-cask "other-double-commander" do
+cask "double-commander" do
   arch arm: "aarch64", intel: "x86_64"
 
   version "1.1.31"
