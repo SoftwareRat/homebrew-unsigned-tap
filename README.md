@@ -37,15 +37,15 @@ brew update && brew upgrade --cask
 | Cask | Description |
 |------|-------------|
 | `alacritty` | GPU-accelerated terminal emulator |
-| `other-double-commander` | Dual-pane file manager |
-| `other-dupeguru` | Duplicate file finder |
-| `other-gstreamer-runtime` | GStreamer open-source multimedia framework runtime |
-| `other-lyx` | GUI document processor built on LaTeX |
-| `other-okular` | KDE document viewer (PDF, EPUB, and more) |
-| `other-qbittorrent` | BitTorrent client |
-| `other-qownnotes` | Plain-text notepad and to-do list manager |
-| `other-texstudio` | LaTeX editor |
-| `other-wine-stable` | Compatibility layer for running Windows applications |
+| `double-commander` | Dual-pane file manager |
+| `dupeguru` | Duplicate file finder |
+| `gstreamer-runtime` | GStreamer open-source multimedia framework runtime |
+| `lyx` | GUI document processor built on LaTeX |
+| `okular` | KDE document viewer (PDF, EPUB, and more) |
+| `qbittorrent` | BitTorrent client |
+| `qownnotes` | Plain-text notepad and to-do list manager |
+| `texstudio` | LaTeX editor |
+| `wine-stable` | Compatibility layer for running Windows applications |
 
 ---
 
