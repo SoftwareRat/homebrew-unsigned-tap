@@ -1,38 +1,66 @@
-# SoftwareRat/homebrew-unsigned-tap
+# SoftwareRat/unsigned-tap
 
-Homebrew devs bend over backwards for Apple's Gatekeeper bullshit. They reject any app Apple didn't stamp "safe." Unsigned? Gone. Unnotarized? Deleted. This tap says fuck that.
+A Homebrew tap for macOS applications that are unsigned or unnotarized — and therefore rejected by the official [Homebrew/homebrew-cask](https://github.com/Homebrew/homebrew-cask) repository.
 
-## Apple's Scam Exposed
+## Why this tap exists
 
-Pay Apple $99/year or your app gets blocked on Macs you own. Homebrew enforces this racket—won't touch anything without Apple's kiss. Meanwhile, the apps work perfectly until Gatekeeper cockblocks them.
+Apple requires developers to pay $99/year for a Developer ID certificate and submit every release to Apple's notarization service before macOS will run it without warnings. Homebrew Cask enforces this gate by refusing to host any cask that fails a Gatekeeper check — not because the software is broken or malicious, but purely because it lacks Apple's paid stamp of approval.
 
-We host the rejects: unsigned gems, unnotarized tools, casks Homebrew killed. Auto-strip quarantine so they launch clean. No System Settings dance.
+The result: perfectly functional, well-maintained open-source applications get quietly dropped from Homebrew the moment their maintainers miss a notarization step or choose not to pay Apple's annual fee. Users who relied on those casks lose them with no warning.
 
-## Fight Back. This Is How It Starts.
+This tap says no to that. It hosts the rejected casks, automatically strips the quarantine attribute after installation so apps launch normally, and keeps definitions up to date. You own your Mac. You decide what runs on it.
 
-Homebrew became Apple's bitch. We're the fix. Install real software without corporate permission slips. Users run their own damn machines. Developers skip the extortion.
+> **Note:** "Unsigned" and "unnotarized" mean the developer has not paid Apple for a signing certificate or run the binary through Apple's notarization pipeline — not that the software is inherently untrustworthy. As with any software, use your own judgement: check the upstream project, read the cask definition in `Casks/`, and decide for yourself.
 
-Got something Homebrew axed? Fork it here. Explain Apple's rejection. Build the free alternative.
+---
 
-## Your Disclaimer
-
-This bypasses Homebrew's "security." Your Mac. Run what you want.
-
-## Get It
+## Quickstart
 
 ```bash
-brew tap SoftwareRat/homebrew-unsigned-tap
-brew tap  # Proof
+# 1. Add this tap
+brew tap SoftwareRat/unsigned-tap
+
+# 2. Install a cask (example: Alacritty)
 brew install --cask alacritty
-# or: brew install --cask SoftwareRat/homebrew-unsigned-tap/alacritty
-brew update
+
+# 3. Or install using the fully-qualified name
+brew install --cask SoftwareRat/unsigned-tap/alacritty
+
+# 4. Keep casks up to date
+brew update && brew upgrade --cask
 ```
 
-## Bail Out
+---
+
+## Available Casks
+
+| Cask | Description |
+|------|-------------|
+| `alacritty` | GPU-accelerated terminal emulator |
+| `other-double-commander` | Dual-pane file manager |
+| `other-dupeguru` | Duplicate file finder |
+| `other-gstreamer-runtime` | GStreamer open-source multimedia framework runtime |
+| `other-lyx` | GUI document processor built on LaTeX |
+| `other-okular` | KDE document viewer (PDF, EPUB, and more) |
+| `other-qbittorrent` | BitTorrent client |
+| `other-qownnotes` | Plain-text notepad and to-do list manager |
+| `other-texstudio` | LaTeX editor |
+| `other-wine-stable` | Compatibility layer for running Windows applications |
+
+---
+
+## Removing a Cask
 
 ```bash
-brew untap SoftwareRat/homebrew-unsigned-tap
-brew remove --cask alacritty
+# Remove an installed cask
+brew uninstall --cask alacritty
+
+# Remove this tap entirely
+brew untap SoftwareRat/unsigned-tap
 ```
 
-Apple's turning Macs into locked iPads. Homebrew helps. Time to break free.
+---
+
+## Contributing
+
+If a cask you use was removed from Homebrew Cask due to a Gatekeeper rejection, feel free to open a pull request adding it here. Please include the upstream source URL, the reason for the Gatekeeper failure, and a working cask definition.
