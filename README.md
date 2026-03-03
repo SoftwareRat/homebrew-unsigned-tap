@@ -1,5 +1,8 @@
 # SoftwareRat/homebrew-unsigned-tap
 
+[![CI](https://github.com/SoftwareRat/homebrew-unsigned-tap/actions/workflows/ci.yml/badge.svg)](https://github.com/SoftwareRat/homebrew-unsigned-tap/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Homebrew devs bend over backwards for Apple's Gatekeeper bullshit. They reject any app Apple didn't stamp "safe." Unsigned? Gone. Unnotarized? Deleted. This tap says fuck that.
 
 ## Apple's Scam Exposed
@@ -36,3 +39,17 @@ brew remove --cask alacritty
 ```
 
 Apple's turning Macs into locked iPads. Homebrew helps. Time to break free.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on adding or updating casks and running local verification commands.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for how to report vulnerabilities and the security expectations for this tap.
+
+## Code of Conduct
+
+This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating you agree to abide by its terms.

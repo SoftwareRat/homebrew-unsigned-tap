@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  audit:
+    name: brew style & audit
+    runs-on: macos-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Homebrew is pre-installed on GitHub-hosted macOS runners.
+      # Update it to ensure we have the latest auditing rules.
+      - name: Update Homebrew
+        run: brew update
+
+      # Tap this repository so Homebrew knows about our casks.
+      - name: Tap this repository
+        run: brew tap SoftwareRat/homebrew-unsigned-tap "$(pwd)"
+
+      # Determine which casks changed in this push/PR.
+      # Falls back to all casks when we cannot determine a diff (e.g. a
+      # force-push or direct push to a branch with no base to compare).
+      - name: Determine changed casks
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE="${{ github.event.before }}"
+          fi
+
+          if git rev-parse --verify "$BASE" >/dev/null 2>&1; then
+            FILES=$(git diff --name-only "$BASE" HEAD -- 'Casks/*.rb' || true)
+          else
+            FILES=""
+          fi
+
+          if [ -z "$FILES" ]; then
+            # Fallback: check all casks
+            FILES=$(find Casks -name '*.rb' | sort)
+            echo "No diff available — checking all casks."
+          fi
+
+          # Convert file paths to cask tokens (basename without .rb)
+          TOKENS=""
+          for f in $FILES; do
+            token=$(basename "$f" .rb)
+            TOKENS="$TOKENS $token"
+          done
+
+          echo "tokens=$TOKENS" >> "$GITHUB_OUTPUT"
+          echo "Casks to check:$TOKENS"
+
+      - name: brew style
+        if: steps.changed.outputs.tokens != ''
+        run: |
+          for token in ${{ steps.changed.outputs.tokens }}; do
+            echo "→ brew style Casks/${token}.rb"
+            brew style "Casks/${token}.rb"
+          done
+
+      - name: brew audit --cask
+        if: steps.changed.outputs.tokens != ''
+        run: |
+          for token in ${{ steps.changed.outputs.tokens }}; do
+            echo "→ brew audit --cask SoftwareRat/homebrew-unsigned-tap/${token}"
+            # --no-signing is used because this tap intentionally hosts
+            # unsigned/unnotarized apps; signing failures are expected.
+            brew audit --cask \
+              --except=signing \
+              "SoftwareRat/homebrew-unsigned-tap/${token}"
+          done

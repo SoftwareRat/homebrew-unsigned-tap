@@ -1,0 +1,60 @@
+name: Bug Report (Broken Cask)
+description: Report a broken or misbehaving cask
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a broken cask. Please fill in all fields below.
+
+  - type: input
+    id: cask_token
+    attributes:
+      label: Cask token
+      description: The name of the cask (e.g. `alacritty`)
+      placeholder: alacritty
+    validations:
+      required: true
+
+  - type: input
+    id: brew_version
+    attributes:
+      label: Homebrew version
+      description: Output of `brew --version`
+      placeholder: Homebrew 4.x.x
+    validations:
+      required: true
+
+  - type: input
+    id: macos_version
+    attributes:
+      label: macOS version
+      description: Output of `sw_vers -productVersion`
+      placeholder: "14.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: output_logs
+    attributes:
+      label: Output / logs
+      description: Paste the full output of the failing command
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happened?
+    validations:
+      required: true
