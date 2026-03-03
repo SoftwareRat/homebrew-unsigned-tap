@@ -1,4 +1,4 @@
-# SoftwareRat/unsigned-tap
+# SoftwareRat/homebrew-unsigned-tap
 
 A Homebrew tap for macOS applications that are unsigned or unnotarized — and therefore rejected by the official [Homebrew/homebrew-cask](https://github.com/Homebrew/homebrew-cask) repository.
 
