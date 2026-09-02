@@ -1,0 +1,56 @@
+name: Autobump casks
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: macos-latest
+    outputs:
+      casks: ${{ steps.livecheck.outputs.casks }}
+    steps:
+      - name: Tap the repo
+        run: brew tap SoftwareRat/homebrew-unsigned-tap
+
+      - name: Run livecheck and collect outdated casks
+        id: livecheck
+        run: |
+          set -euo pipefail
+
+          # Run livecheck across the tap; don't let a non-zero exit
+          # (e.g. some casks failing to check) kill the job.
+          brew livecheck --tap=SoftwareRat/homebrew-unsigned-tap --json > livecheck.json || true
+
+          # Pull out just the cask names that are reported outdated,
+          # and collapse them into a single-line JSON array for GITHUB_OUTPUT.
+          casks=$(jq -c '[.[] | select(.status == "outdated") | .formula // .cask] | unique' livecheck.json)
+
+          echo "Outdated casks: $casks"
+          echo "casks=$casks" >> "$GITHUB_OUTPUT"
+
+      - name: Upload livecheck report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: livecheck-report
+          path: livecheck.json
+
+  bump:
+    needs: check
+    if: needs.check.outputs.casks != '[]'
+    runs-on: macos-latest
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix:
+        cask: ${{ fromJson(needs.check.outputs.casks) }}
+    steps:
+      - name: Bump ${{ matrix.cask }}
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          tap: SoftwareRat/homebrew-unsigned-tap
+          formula: ${{ matrix.cask }}
+          livecheck: true
