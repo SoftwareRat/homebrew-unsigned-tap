@@ -1,0 +1,26 @@
+name: Autobump Formulas and Casks
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  autobump:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    env:
+      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN || github.token }}
+    steps:
+      - name: Update Homebrew cask
+        uses: Markos-Th09/action-homebrew-bump-cask@v3.9.0
+        with:
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN || github.token }}
+          tap: ${{ github.repository }}
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          livecheck: true
+          no_fork: true
