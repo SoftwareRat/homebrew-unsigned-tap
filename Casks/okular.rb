@@ -16,6 +16,8 @@ cask "okular" do
     regex(/okular-master-(\d+)-macos-clang-#{arch}\.dmg/i)
   end
 
+  depends_on :macos
+
   app "okular.app"
 
   postflight do

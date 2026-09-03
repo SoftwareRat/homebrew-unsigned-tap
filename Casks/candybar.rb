@@ -3,8 +3,7 @@ cask "candybar" do
     version "3.3.4"
     sha256 "f305596f195445016b35c9d99a40789c6671195e9cbad0b6e92e808b6c633ad6"
 
-    url "https://download.panic.com/candybar/CandyBar%20#{version}.zip",
-        verified: "download.panic.com/candybar/"
+    url "https://download.panic.com/candybar/CandyBar%20#{version}.zip"
 
     livecheck do
       skip "Legacy version"
@@ -14,8 +13,7 @@ cask "candybar" do
     version "3.5"
     sha256 :no_check
 
-    url "https://files.iconfactory.net/software/CandyBar-SFE.zip",
-        verified: "files.iconfactory.net/software/"
+    url "https://files.iconfactory.net/software/CandyBar-SFE.zip"
 
     livecheck do
       url :url
@@ -28,6 +26,8 @@ cask "candybar" do
   homepage "https://blog.iconfactory.com/2022/04/candybar-sugar-free-edition/"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "CandyBar.app"
 

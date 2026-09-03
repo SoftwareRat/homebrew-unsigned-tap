@@ -2,8 +2,7 @@ cask "dvdstyler" do
   version "3.2.1_1"
   sha256 "79da43f15c1eb8002cf4a9282ff61047fdd0911532a413e0b3f9077530673ac5"
 
-  url "https://downloads.sourceforge.net/dvdstyler/DVDStyler-#{version}-MacOSX.dmg",
-      verified: "sourceforge.net/dvdstyler/"
+  url "https://downloads.sourceforge.net/dvdstyler/DVDStyler-#{version}-MacOSX.dmg"
   name "DVDStyler"
   desc "DVD authoring application"
   homepage "https://www.dvdstyler.org/"
@@ -14,6 +13,8 @@ cask "dvdstyler" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "DVDStyler.app"
 

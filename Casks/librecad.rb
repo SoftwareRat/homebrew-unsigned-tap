@@ -5,8 +5,7 @@ cask "librecad" do
   sha256 arm:   "32e50dd71461745d2563224eeab9df0a0a26c5cf99e3b8498937c2e41ce2ec56",
          intel: "74e4f8c000f55eebe4da0fc10b1a7b6c868ce68918acddc8b8b5ab3ee8486f05"
 
-  url "https://github.com/LibreCAD/LibreCAD/releases/download/v#{version.csv.first}/LibreCAD-v#{version.csv.second || version.csv.first}#{arch}.dmg",
-      verified: "github.com/LibreCAD/LibreCAD/"
+  url "https://github.com/LibreCAD/LibreCAD/releases/download/v#{version.csv.first}/LibreCAD-v#{version.csv.second || version.csv.first}#{arch}.dmg"
   name "LibreCAD"
   desc "CAD application"
   homepage "https://librecad.org/"
@@ -32,7 +31,7 @@ cask "librecad" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "LibreCAD.app"
 

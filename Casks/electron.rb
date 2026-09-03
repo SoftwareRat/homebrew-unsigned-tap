@@ -5,8 +5,7 @@ cask "electron" do
   sha256 arm:   "d8aeeb263b234a243411e02b3828e9349fe976417798334cba9f34f6eae28d7e",
          intel: "08edd23e1b1ee8c06a2fb4ef6d5e41c9ca19d3f6c70a2e1432a33c44e06b3170"
 
-  url "https://github.com/electron/electron/releases/download/v#{version}/electron-v#{version}-darwin-#{arch}.zip",
-      verified: "github.com/electron/electron/"
+  url "https://github.com/electron/electron/releases/download/v#{version}/electron-v#{version}-darwin-#{arch}.zip"
   name "Electron"
   desc "Build desktop apps with JavaScript, HTML, and CSS"
   homepage "https://electronjs.org/"
@@ -18,7 +17,7 @@ cask "electron" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "Electron.app"
   binary "#{appdir}/Electron.app/Contents/MacOS/Electron", target: "electron"

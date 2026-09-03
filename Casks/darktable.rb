@@ -6,14 +6,13 @@ cask "darktable" do
          intel: "d615f7e78af9fb23d7c8017a5d35be50ea13f1ccf89491ef4b927e23eff0f43a"
 
   on_arm do
-    depends_on macos: ">= :sonoma"
+    depends_on macos: :sonoma
   end
   on_intel do
-    depends_on macos: ">= :sequoia"
+    depends_on macos: :sequoia
   end
 
-  url "https://github.com/darktable-org/darktable/releases/download/release-#{version.major_minor_patch}/darktable-#{version}-#{arch}.dmg",
-      verified: "github.com/darktable-org/darktable/"
+  url "https://github.com/darktable-org/darktable/releases/download/release-#{version.major_minor_patch}/darktable-#{version}-#{arch}.dmg"
   name "darktable"
   desc "Photography workflow application and raw developer"
   homepage "https://www.darktable.org/"

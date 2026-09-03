@@ -2,8 +2,7 @@ cask "xld" do
   version "20250302"
   sha256 "0032a5470ea4e32a11a35b8077ebf4986102891f8eb82743094f2c6621ad8aeb"
 
-  url "https://downloads.sourceforge.net/xld/xld-#{version}.dmg",
-      verified: "sourceforge.net/xld/"
+  url "https://downloads.sourceforge.net/xld/xld-#{version}.dmg"
   name "X Lossless Decoder"
   name "XLD"
   desc "Lossless audio decoder"
@@ -17,12 +16,14 @@ cask "xld" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   auto_updates true
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/xld.wrapper.sh"
+
+  depends_on :macos
 
   app "XLD.app"
   binary shimscript, target: "xld"
 
-  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
-  shimscript = "#{staged_path}/xld.wrapper.sh"
   preflight do
     File.write shimscript, <<~EOS
       #!/bin/sh

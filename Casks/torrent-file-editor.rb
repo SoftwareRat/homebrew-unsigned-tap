@@ -2,13 +2,14 @@ cask "torrent-file-editor" do
   version "1.0.1"
   sha256 "65a1d3a324904cf61e9e0caac3d128ff1c7876bb02cf537affdecf013b2b889a"
 
-  url "https://github.com/torrent-file-editor/torrent-file-editor/releases/download/v#{version}/torrent-file-editor-#{version}.dmg",
-      verified: "github.com/torrent-file-editor/torrent-file-editor/"
+  url "https://github.com/torrent-file-editor/torrent-file-editor/releases/download/v#{version}/torrent-file-editor-#{version}.dmg"
   name "Torrent File Editor"
   desc "GUI for editing and creating torrent files"
   homepage "https://torrent-file-editor.github.io/"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "Torrent File Editor.app"
 

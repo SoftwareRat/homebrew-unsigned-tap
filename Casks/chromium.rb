@@ -4,8 +4,7 @@ cask "chromium" do
   version :latest
   sha256 :no_check
 
-  url "https://download-chromium.appspot.com/dl/#{arch}?type=snapshots",
-      verified: "download-chromium.appspot.com/dl/"
+  url "https://download-chromium.appspot.com/dl/#{arch}?type=snapshots"
   name "Chromium"
   desc "Free and open-source web browser"
   homepage "https://www.chromium.org/Home"
@@ -13,7 +12,7 @@ cask "chromium" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "ungoogled-chromium"
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/chromium.wrapper.sh"

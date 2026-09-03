@@ -34,6 +34,8 @@ cask "forkgram-telegram" do
 
   # Renamed to avoid conflict with telegram
 
+  depends_on :macos
+
   app "Telegram.app", target: "Forkgram.app"
 
   postflight do

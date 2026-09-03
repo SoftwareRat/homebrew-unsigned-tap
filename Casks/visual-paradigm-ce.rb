@@ -27,6 +27,8 @@ cask "visual-paradigm-ce" do
 
   # Renamed to avoid conflict with visual-paradigm.
 
+  depends_on :macos
+
   app "Visual Paradigm.app", target: "Visual Paradigm CE.app"
 
   postflight do

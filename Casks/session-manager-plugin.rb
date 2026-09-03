@@ -5,8 +5,7 @@ cask "session-manager-plugin" do
   sha256 arm:   "2457c5926db31f6db2cfe606ba37ef67169604baf4aa6bac44f8213cd728e5ce",
          intel: "8005072e18f6f402d208ae08ed21f18af81765a755a07dd7b9023757db29457d"
 
-  url "https://session-manager-downloads.s3.amazonaws.com/plugin/#{version}/mac#{arch}/session-manager-plugin.pkg",
-      verified: "session-manager-downloads.s3.amazonaws.com/plugin/"
+  url "https://session-manager-downloads.s3.amazonaws.com/plugin/#{version}/mac#{arch}/session-manager-plugin.pkg"
   name "Session Manager Plugin for the AWS CLI"
   desc "Plugin for AWS CLI to start and end sessions that connect to managed instances"
   homepage "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html"
@@ -17,6 +16,8 @@ cask "session-manager-plugin" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   pkg "session-manager-plugin.pkg"
   binary "/usr/local/sessionmanagerplugin/bin/session-manager-plugin"

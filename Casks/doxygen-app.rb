@@ -11,13 +11,13 @@ cask "doxygen-app" do
   homepage "https://www.doxygen.nl/"
 
   livecheck do
-    url "https://www.doxygen.nl/download.html"
+    url "https://www.doxygen.nl/download.html", user_agent: :browser
     regex(/href=.*?Doxygen[._-]v?(\d+(?:\.\d+)+)[._-]#{arch}\.dmg/i)
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
 
   app "Doxygen.app"
 

@@ -1,9 +1,11 @@
 cask "bisq" do
-  version "1.9.22"
-  sha256 "31785d3122f4494313124b37783e923da0f3f6f5d7a0d7e9d66d94b872db4e57"
+  arch arm: "aarch64", intel: "x86_64"
 
-  url "https://github.com/bisq-network/bisq/releases/download/v#{version}/Bisq-#{version}.dmg",
-      verified: "github.com/bisq-network/bisq/"
+  version "1.10.7"
+  sha256 arm:   "71b3d46e56982908e8b64daeb9f8ca62059d6344cc3cecb8f4cfe9b5a0da5873",
+         intel: "42b8c6e8716478bd4cb7ea1b9ece6456f8d0aa0a0e071eab66de3c51a3438675"
+
+  url "https://github.com/bisq-network/bisq/releases/download/v#{version}/Bisq-#{arch}-#{version}.dmg"
   name "Bisq"
   desc "Decentralised bitcoin exchange network"
   homepage "https://bisq.network/"
@@ -15,6 +17,8 @@ cask "bisq" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Bisq.app"
 
   postflight do
@@ -25,8 +29,4 @@ cask "bisq" do
     "~/Library/Application Support/Bisq",
     "~/Library/Saved Application State/io.bisq.CAT.savedState",
   ]
-
-  caveats do
-    requires_rosetta
-  end
 end

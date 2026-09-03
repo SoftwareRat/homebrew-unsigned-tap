@@ -12,6 +12,8 @@ cask "isyncer" do
     regex(/href=.*?iSyncer[._-]?v?(\d+(?:\.\d+)+)[._-]?mac[._-]installer\.t/i)
   end
 
+  depends_on :macos
+
   pkg "iSyncer-installer-#{version}.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check

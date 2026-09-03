@@ -12,6 +12,8 @@ cask "qtspim" do
     regex(%r{url=.*?/QtSpim[._-]v?(\d+(?:\.\d+)+)[._-]mac\.(?:m?pkg(?:\.zip)?|dmg)}i)
   end
 
+  depends_on :macos
+
   pkg "QtSpim.mpkg/Contents/Packages/QtSpim.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check

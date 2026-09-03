@@ -42,7 +42,7 @@ cask "xit" do
   desc "GUI for the git version control system"
   homepage "https://github.com/Uncommon/Xit"
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   zap trash: [
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.uncommonplace.xit.sfl*",

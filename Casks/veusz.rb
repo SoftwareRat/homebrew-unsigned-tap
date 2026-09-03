@@ -5,8 +5,7 @@ cask "veusz" do
   sha256 arm:   "0cfef00226d58631b27cfcc0e300f8f12d2bb16a95349757e92fe9008fc4ffff",
          intel: "1c23d385ecc021e63fc2bf8459a173aca3684816763dd32bdf61f90ced53d7f3"
 
-  url "https://github.com/veusz/veusz/releases/download/veusz-#{version.csv.second || version.csv.first}/veusz-#{version.csv.first}-AppleOSX-#{arch}.dmg",
-      verified: "github.com/veusz/veusz/"
+  url "https://github.com/veusz/veusz/releases/download/veusz-#{version.csv.second || version.csv.first}/veusz-#{version.csv.first}-AppleOSX-#{arch}.dmg"
   name "Veusz"
   desc "Scientific plotting application"
   homepage "https://veusz.github.io/"
@@ -28,6 +27,8 @@ cask "veusz" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "Veusz.app"
 

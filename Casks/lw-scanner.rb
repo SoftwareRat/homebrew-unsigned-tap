@@ -5,8 +5,7 @@ cask "lw-scanner" do
   sha256 arm:   "4453d08e52cccb0aedafd9f439182f1bebde190e7cbe652671abdfd77258a392",
          intel: "7f3f1d16411f092810af898f14e722fe170ad910b72caa266b7bbcbe2d15d400"
 
-  url "https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v#{version}/lw-scanner-darwin-#{arch}.zip",
-      verified: "github.com/lacework/lacework-vulnerability-scanner/"
+  url "https://github.com/lacework/lacework-vulnerability-scanner/releases/download/v#{version}/lw-scanner-darwin-#{arch}.zip"
   name "Lacework vulnerability scanner"
   desc "Lacework inline scanner"
   homepage "https://docs.lacework.net/console/local-scanning-quickstart"

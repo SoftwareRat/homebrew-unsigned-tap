@@ -41,6 +41,8 @@ cask "simply-fortran" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Simply Fortran.app"
 
   postflight do

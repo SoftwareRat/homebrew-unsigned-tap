@@ -2,8 +2,7 @@ cask "treesheets" do
   version "3044"
   sha256 "16c5ac665d71b4b77b17788b800a94b5da23aa4055206a69d08cd8b5e9d6691d"
 
-  url "https://github.com/aardappel/treesheets/releases/download/#{version.csv.second || version.csv.first}/TreeSheets-#{version.csv.first}-Darwin.dmg",
-      verified: "github.com/aardappel/treesheets/"
+  url "https://github.com/aardappel/treesheets/releases/download/#{version.csv.second || version.csv.first}/TreeSheets-#{version.csv.first}-Darwin.dmg"
   name "TreeSheets"
   desc "Hierarchical spreadsheet and outline application"
   homepage "https://strlen.com/treesheets/"
@@ -22,6 +21,8 @@ cask "treesheets" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "TreeSheets.app"
 

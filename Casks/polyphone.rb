@@ -1,48 +1,44 @@
 cask "polyphone" do
-  macos_version = "-MacOS_12"
+  file_id = on_arch_conditional arm: "157", intel: "158"
+  livecheck_arch = on_arch_conditional intel: "_Intel"
 
-  on_big_sur :or_older do
-    version "2.5.1,130"
-    sha256 "03b3509f8a6af45a7de6b93aeaf62bf5fae552aba7806b0ac46cf24ba57f37e3"
+  version "2.6.0,#{file_id}"
+  sha256 arm:   "9b53047fa33208921ee40f68b6817cb6bbb94379980a537b029a757f45da856e",
+         intel: "0dcdff039a011f913cf03a100fbcef5c9dde9744ac0a369531022a43aaf9fd6c"
 
-    macos_version = "_MacOS_10.13"
-  end
-  on_monterey :or_newer do
-    version "2.5.1,129"
-    sha256 "89a60fc2444a4502719d23f2d5404a1fa9677db64ef09267ebced0eddf77a0dc"
-  end
-
-  url "https://www.polyphone.io/download/0/v#{version.csv.second}/Polyphone#{macos_version}-#{version.csv.first}.dmg",
-      user_agent: :browser
+  url "https://www.polyphone.io/en/software/download?file_id=#{version.csv.second}"
   name "Polyphone"
   desc "Soundfont editor for quickly designing musical instruments"
   homepage "https://www.polyphone.io/en"
 
   livecheck do
     url "https://www.polyphone.io/en/software"
-    regex(/href=.*?file_id=(\d+).*?Polyphone#{macos_version}[._-]v?(\d+(?:\.\d+)+)\.dmg/i)
+    regex(
+      %r{
+        <a[^>]+
+        href=["']/en/software/download\?file_id=(\d+)["'][^>]+
+        title=["'][^"']*Polyphone[-_](\d+(?:\.\d+)+)[-_]macOS_12#{livecheck_arch}\.dmg
+      }ix,
+    )
     strategy :page_match do |page, regex|
-      match = page.match(regex)
-      next if match.blank?
-
-      "#{match[2]},#{match[1]}"
+      page.scan(regex).map do |file_id, version|
+        "#{version},#{file_id}"
+      end
     end
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  app "polyphone.app"
+  depends_on macos: :monterey
+
+  app "Polyphone.app"
 
   postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/polyphone.app"
+    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Polyphone.app"
   end
 
   zap trash: [
     "~/Library/Preferences/com.polyphone.Polyphone.plist",
     "~/Library/Saved Application State/fr.polyphone.Polyphone.savedState",
   ]
-
-  caveats do
-    requires_rosetta
-  end
 end

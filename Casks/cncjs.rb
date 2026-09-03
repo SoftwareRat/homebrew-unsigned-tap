@@ -1,12 +1,10 @@
 cask "cncjs" do
-  arch arm: "arm64", intel: "x64"
+  arch arm: "arm64"
 
-  version "1.11.0"
-  sha256 arm:   "8a46dcedc78cf8ac89dadbe47c9ec6c0eae252300a2eeebf0c84da0b28c32f48",
-         intel: "3793b520dbacbf97b1e137a6e6bf1b62e71e70b0f01f02b80ea2a2cc9726abd8"
+  version "1.11.3"
+  sha256 "38a64190d8e03b66d732b8a960cd0f0e1aaa1030cc90efdbe8c9da36387b40ae"
 
-  url "https://github.com/cncjs/cncjs/releases/download/v#{version}/cncjs-app-#{version}-macos-#{arch}.dmg",
-      verified: "github.com/cncjs/cncjs/"
+  url "https://github.com/cncjs/cncjs/releases/download/v#{version}/cncjs-app-#{version}-macos-#{arch}.dmg"
   name "CNSjs"
   desc "Interface for CNC milling controllers"
   homepage "https://cnc.js.org/"
@@ -17,6 +15,9 @@ cask "cncjs" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
+  depends_on arch: :arm64
 
   app "CNCjs.app"
 

@@ -10,8 +10,7 @@ cask "xpra" do
     sha256 "b59119b255c615fcc2077c2154ca47646c7726d0a5142f4b12a8ca4c6b4a1640"
   end
 
-  url "https://xpra.org/dists/MacOS/#{arch}/Xpra-#{arch}-#{version.csv.first}-r#{version.csv.second}.dmg",
-      verified: "xpra.org/"
+  url "https://xpra.org/dists/MacOS/#{arch}/Xpra-#{arch}-#{version.csv.first}-r#{version.csv.second}.dmg"
   name "Xpra"
   desc "Screen and application forwarding system"
   homepage "https://github.com/Xpra-org/xpra/"
@@ -28,7 +27,7 @@ cask "xpra" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "Xpra.app"
   binary "#{appdir}/Xpra.app/Contents/MacOS/Xpra", target: "xpra"

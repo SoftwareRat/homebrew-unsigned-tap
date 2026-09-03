@@ -6,14 +6,13 @@ cask "sonarr" do
          intel: "b17b90e163e89bb438c1ffd896ead16ffce96b6fb27c05dc96acef80bc84e06f"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on macos: :big_sur
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on macos: :catalina
   end
 
-  url "https://github.com/Sonarr/Sonarr/releases/download/v#{version}/Sonarr.main.#{version}.osx-#{arch}-app.zip",
-      verified: "github.com/Sonarr/Sonarr/"
+  url "https://github.com/Sonarr/Sonarr/releases/download/v#{version}/Sonarr.main.#{version}.osx-#{arch}-app.zip"
   name "Sonarr"
   desc "PVR for Usenet and BitTorrent users"
   homepage "https://sonarr.tv/"

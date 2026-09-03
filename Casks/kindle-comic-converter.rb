@@ -6,10 +6,10 @@ cask "kindle-comic-converter" do
          intel: "cfc9625cca219679eed4cdf380cc90e7d47e12a40a2078017c5100e2eec0fa28"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on macos: :big_sur
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on macos: :catalina
   end
 
   url "https://github.com/ciromattia/kcc/releases/download/v#{version}/kcc_macos_#{arch}_#{version}.dmg"

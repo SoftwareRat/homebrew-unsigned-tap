@@ -17,8 +17,7 @@ cask "qbittorrent" do
     end
   end
 
-  url "https://downloads.sourceforge.net/qbittorrent/qbittorrent-mac/qbittorrent-#{version}/qbittorrent-#{version}.dmg",
-      verified: "downloads.sourceforge.net/qbittorrent/qbittorrent-mac/"
+  url "https://downloads.sourceforge.net/qbittorrent/qbittorrent-mac/qbittorrent-#{version}/qbittorrent-#{version}.dmg"
   name "qBittorrent"
   desc "Peer to peer Bitorrent client"
   homepage "https://www.qbittorrent.org/"
@@ -26,8 +25,9 @@ cask "qbittorrent" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "qbittorrent@lt20"
-
   # Renamed for consistency: app name is different in the Finder and in a shell.
+
+  depends_on :macos
 
   app "qbittorrent.app", target: "qBittorrent.app"
 

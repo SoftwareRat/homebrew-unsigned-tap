@@ -2,8 +2,7 @@ cask "ubiquiti-unifi-controller" do
   version "10.1.89"
   sha256 "6a3e7c5c971250d5f50b8fdd54e62483220204e4e47bb45ce280861c45ef6438"
 
-  url "https://dl.ubnt.com/unifi/#{version}/UniFi-Network-Server.dmg",
-      verified: "dl.ubnt.com/"
+  url "https://dl.ubnt.com/unifi/#{version}/UniFi-Network-Server.dmg"
   name "Ubiquiti UniFi Network Controller"
   desc "Set up, configure, manage and analyze your UniFi network"
   homepage "https://unifi-sdn.ui.com/"
@@ -19,6 +18,8 @@ cask "ubiquiti-unifi-controller" do
   end
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
+
+  depends_on :macos
 
   app "UniFi.app"
 

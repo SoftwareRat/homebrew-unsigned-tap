@@ -5,8 +5,7 @@ cask "salesforce-cli" do
   sha256 arm:   "6674ad8339936311622841bbc7283c433195c97d0cb35565c7c8a5384d2ec89c",
          intel: "c58fbe183b8bf55c5a7c7b3f5917aedbc5cdbae528cfa383579b301f2b633eff"
 
-  url "https://github.com/salesforcecli/cli/releases/download/#{version.csv.first}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg",
-      verified: "github.com/salesforcecli/cli/"
+  url "https://github.com/salesforcecli/cli/releases/download/#{version.csv.first}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"
   name "Salesforce CLI"
   desc "CLI tools for Salesforce"
   homepage "https://developer.salesforce.com/tools/salesforcecli"
@@ -19,6 +18,8 @@ cask "salesforce-cli" do
       "#{json["version"]},#{json["sha"]}"
     end
   end
+
+  depends_on :macos
 
   pkg "sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"
 

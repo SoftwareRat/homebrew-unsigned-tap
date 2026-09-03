@@ -6,10 +6,10 @@ cask "lemonlime" do
          intel: "233f167e68b80ced3552c3caaa2ede49f48a738158b1b51bdeb46af4e5d0e15d"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on macos: :big_sur
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on macos: :catalina
   end
 
   url "https://github.com/Project-LemonLime/Project_LemonLime/releases/download/#{version.csv.first}/lemon-Qt#{version.csv.second}-Release-#{arch}.dmg"

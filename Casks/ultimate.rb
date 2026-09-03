@@ -12,6 +12,8 @@ cask "ultimate" do
     regex(/Version:\s*v?(\d+(?:\.\d+)+).*?#os_Mac/i)
   end
 
+  depends_on :macos
+
   pkg "Ultimate.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check

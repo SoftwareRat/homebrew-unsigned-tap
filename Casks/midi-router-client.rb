@@ -14,7 +14,7 @@ cask "midi-router-client" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :tahoe"
+  depends_on macos: :tahoe
 
   app "midi-router-client.app"
 

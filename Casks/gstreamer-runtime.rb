@@ -1,6 +1,6 @@
 cask "gstreamer-runtime" do
-  version "1.26.10"
-  sha256 "48898f1969dc79f8d0523a717215e30d7fd5cb58640a810a824410c684353abc"
+  version "1.28.6"
+  sha256 "a8eb366c59b7e9e5dc049848fed6bcd203a8878aa7517c051639fda78797c6ad"
 
   url "https://gstreamer.freedesktop.org/data/pkg/osx/#{version}/gstreamer-1.0-#{version}-universal.pkg"
   name "GStreamer runtime package"
@@ -11,6 +11,8 @@ cask "gstreamer-runtime" do
     url "https://gstreamer.freedesktop.org/download/"
     regex(/gstreamer[._-]1\.0[._-]v?(\d+(?:\.\d+)+)[._-]universal\.pkg/i)
   end
+
+  depends_on :macos
 
   pkg "gstreamer-1.0-#{version}-universal.pkg"
 

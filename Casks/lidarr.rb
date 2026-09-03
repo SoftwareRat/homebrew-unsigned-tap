@@ -6,14 +6,13 @@ cask "lidarr" do
          intel: "8450993360e485fc083204a84726fb002b6dfac54c29d583f8d4a22c3a59cf30"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on macos: :big_sur
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on macos: :catalina
   end
 
-  url "https://github.com/lidarr/Lidarr/releases/download/v#{version}/Lidarr.master.#{version}.osx-app-core-#{arch}.zip",
-      verified: "github.com/lidarr/Lidarr/"
+  url "https://github.com/lidarr/Lidarr/releases/download/v#{version}/Lidarr.master.#{version}.osx-app-core-#{arch}.zip"
   name "Lidarr"
   desc "Looks and smells like Sonarr but made for music"
   homepage "https://lidarr.audio/"

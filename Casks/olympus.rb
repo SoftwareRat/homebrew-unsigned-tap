@@ -2,8 +2,7 @@ cask "olympus" do
   version "5355"
   sha256 "f6059b3fdac15eca6533cb5f618849d8787db3a738428c97d6468d514d8fcd96"
 
-  url "https://dev.azure.com/EverestAPI/Olympus/_apis/build/builds/#{version}/artifacts?artifactName=macos.main&$format=zip",
-      verified: "dev.azure.com/EverestAPI/Olympus/_apis/build/builds/"
+  url "https://dev.azure.com/EverestAPI/Olympus/_apis/build/builds/#{version}/artifacts?artifactName=macos.main&$format=zip"
   name "Olympus"
   desc "Everest (Mod loader for video games Celeste) installer / manager"
   homepage "https://everestapi.github.io/"
@@ -19,6 +18,7 @@ cask "olympus" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
   container nested: "macos.main/dist.zip"
 
   app "Olympus.app"
