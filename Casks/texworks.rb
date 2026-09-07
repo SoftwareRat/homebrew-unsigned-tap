@@ -10,8 +10,7 @@ cask "texworks" do
     sha256 "8d8989c202508ba964681293c15cffd0388429a14f6e828b391cf252db5a40d3"
   end
 
-  url "https://github.com/TeXworks/texworks/releases/download/release-#{version.csv.first}/TeXworks-macos11-#{version.csv.first}-#{arch}-#{version.csv.second}-git_#{version.csv.third}.dmg",
-      verified: "github.com/TeXworks/texworks/"
+  url "https://github.com/TeXworks/texworks/releases/download/release-#{version.csv.first}/TeXworks-macos11-#{version.csv.first}-#{arch}-#{version.csv.second}-git_#{version.csv.third}.dmg"
   name "TeXworks"
   desc "LaTeX editor"
   homepage "https://www.tug.org/texworks/"
@@ -37,12 +36,12 @@ cask "texworks" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "TeXworks.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/TeXworks.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/TeXworks.app"]
   end
 
   zap trash: "~/Library/Preferences/org.tug.TeXworks.plist"

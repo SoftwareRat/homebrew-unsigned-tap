@@ -11,8 +11,8 @@ cask "tinypng4mac" do
 
     app "TinyPNG4Mac.app"
 
-    postflight do
-      system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/TinyPNG4Mac.app"
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/TinyPNG4Mac.app"]
     end
   end
   on_ventura :or_newer do

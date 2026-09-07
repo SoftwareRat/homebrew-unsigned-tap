@@ -14,10 +14,12 @@ cask "brewlet" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Brewlet.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Brewlet.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Brewlet.app"]
   end
 
   zap trash: "~/Library/Preferences/zzada.Brewlet.plist"

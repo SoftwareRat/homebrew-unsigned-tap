@@ -44,12 +44,12 @@ cask "cinc-workstation" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   pkg "cinc-workstation-#{version}-1.#{arch}.pkg"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/cinc-workstation-#{version}-1.#{arch}.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/cinc-workstation-#{version}-1.#{arch}.pkg"]
   end
 
   uninstall launchctl: "io.chef.chef-workstation.app",

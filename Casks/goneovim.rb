@@ -18,7 +18,7 @@ cask "goneovim" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   depends_on formula: "neovim"
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/goneovim.wrapper.sh"
@@ -33,8 +33,8 @@ cask "goneovim" do
     EOS
   end
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/goneovim.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/goneovim.app"]
   end
 
   zap trash: [

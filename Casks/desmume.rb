@@ -2,8 +2,7 @@ cask "desmume" do
   version "0.9.13"
   sha256 "d42e4bbf8f96b6bfdb3c8be6cf469b606a3b105352460636b1051b8dd0365ebc"
 
-  url "https://github.com/TASEmulators/desmume/releases/download/release_#{version.tr(".", "_")}/desmume-#{version}-macOS.dmg",
-      verified: "github.com/TASEmulators/desmume/"
+  url "https://github.com/TASEmulators/desmume/releases/download/release_#{version.tr(".", "_")}/desmume-#{version}-macOS.dmg"
   name "DeSmuME"
   desc "Nintendo DS emulator"
   homepage "https://desmume.org/"
@@ -18,10 +17,12 @@ cask "desmume" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "DeSmuME.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/DeSmuME.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/DeSmuME.app"]
   end
 
   zap trash: [

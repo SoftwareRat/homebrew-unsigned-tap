@@ -2,8 +2,7 @@ cask "fpc-laz" do
   version "3.2.2,4.4"
   sha256 "05d4510c8c887e3c68de20272abf62171aa5b2ef1eba6bce25e4c0bc41ba8b7d"
 
-  url "https://downloads.sourceforge.net/lazarus/Lazarus%20macOS%20x86-64/Lazarus%20#{version.csv.second}/fpc-#{version.csv.first}.intelarm64-macosx.dmg",
-      verified: "sourceforge.net/lazarus/"
+  url "https://downloads.sourceforge.net/lazarus/Lazarus%20macOS%20x86-64/Lazarus%20#{version.csv.second}/fpc-#{version.csv.first}.intelarm64-macosx.dmg"
   name "Pascal compiler for Lazarus"
   desc "Pascal compiler for Lazarus"
   homepage "https://www.lazarus-ide.org/"
@@ -16,12 +15,14 @@ cask "fpc-laz" do
     end
   end
 
+  depends_on :macos
+
   pkg "fpc-#{version.csv.first}-intelarm64-macosx.mpkg/Contents/Packages/fpc-#{version.csv.first}-intelarm64-macosx.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/fpc-#{version.csv.first}-intelarm64-macosx.mpkg/Contents/Packages/fpc-#{version.csv.first}-intelarm64-macosx.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/fpc-#{version.csv.first}-intelarm64-macosx.mpkg/Contents/Packages/fpc-#{version.csv.first}-intelarm64-macosx.pkg"]
   end
 
   uninstall pkgutil: [

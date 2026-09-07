@@ -11,8 +11,8 @@ cask "xit" do
 
     app "Xit.app"
 
-    postflight do
-      system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Xit.app"
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Xit.app"]
     end
 
     caveats do
@@ -42,7 +42,7 @@ cask "xit" do
   desc "GUI for the git version control system"
   homepage "https://github.com/Uncommon/Xit"
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   zap trash: [
     "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.uncommonplace.xit.sfl*",

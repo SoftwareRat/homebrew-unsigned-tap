@@ -2,8 +2,7 @@ cask "steam-plus-plus" do
   version "3.1.0"
   sha256 "4016ed6bba5f4eef14ee7da550dff2d29a8d85483af2fcad77ebda02ebc0be7d"
 
-  url "https://github.com/BeyondDimension/SteamTools/releases/download/#{version}/Steam++_v#{version}_macos.dmg",
-      verified: "github.com/BeyondDimension/SteamTools/"
+  url "https://github.com/BeyondDimension/SteamTools/releases/download/#{version}/Steam++_v#{version}_macos.dmg"
   name "Steam++"
   desc "Steam helper tools"
   homepage "https://steampp.net/"
@@ -15,12 +14,12 @@ cask "steam-plus-plus" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "Steam++.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Steam++.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Steam++.app"]
   end
 
   zap trash: [

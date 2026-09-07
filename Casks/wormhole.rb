@@ -2,8 +2,7 @@ cask "wormhole" do
   version "1.8.0"
   sha256 :no_check
 
-  url "https://drive.usercontent.google.com/download?id=1T6sPiSkIcuMoJwY2HS2F8j0QpLiX4oKB&export=download&confirm=t",
-      verified: "drive.usercontent.google.com/download?id=1T6sPiSkIcuMoJwY2HS2F8j0QpLiX4oKB&export=download&confirm=t"
+  url "https://drive.usercontent.google.com/download?id=1T6sPiSkIcuMoJwY2HS2F8j0QpLiX4oKB&export=download&confirm=t"
   name "Wormhole"
   desc "Browse & Control phone on PC, Screen Fusion for iOS & Android"
   homepage "https://er.run/"
@@ -15,10 +14,12 @@ cask "wormhole" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Wormhole.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Wormhole.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Wormhole.app"]
   end
 
   zap trash: "~/Library/Saved Application State/er.Wormhole.savedState"

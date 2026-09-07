@@ -18,11 +18,12 @@ cask "papyrus" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "morkro-papyrus"
+  depends_on :macos
 
   app "Papyrus.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Papyrus.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Papyrus.app"]
   end
 
   zap trash: [

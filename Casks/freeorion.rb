@@ -5,8 +5,7 @@ cask "freeorion" do
   sha256 arm:   "1ff2aa3c1c3f2c80b65f3cd4f4f79608e48fb7d6db08431d8d8e4da17da4e6c7",
          intel: "5dcd2f1170284b609aab9769b9ae7d0dd6d78d8c24a724c4a716acb0ef2bc875"
 
-  url "https://github.com/freeorion/freeorion/releases/download/v#{version}/FreeOrion_v#{version}_MacOSX_10.15_#{arch}.dmg",
-      verified: "github.com/freeorion/"
+  url "https://github.com/freeorion/freeorion/releases/download/v#{version}/FreeOrion_v#{version}_MacOSX_10.15_#{arch}.dmg"
   name "FreeOrion"
   desc "Turn-based space empire and galactic conquest game"
   homepage "https://freeorion.org/"
@@ -18,10 +17,12 @@ cask "freeorion" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "FreeOrion.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/FreeOrion.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/FreeOrion.app"]
   end
 
   zap trash: [

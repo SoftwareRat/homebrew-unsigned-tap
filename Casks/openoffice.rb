@@ -34,18 +34,19 @@ cask "openoffice" do
     "ru"
   end
 
-  url "https://downloads.sourceforge.net/openofficeorg.mirror/Apache_OpenOffice_#{version}_MacOS_x86-64_install_#{language}.dmg",
-      verified: "sourceforge.net/openofficeorg.mirror/"
+  url "https://downloads.sourceforge.net/openofficeorg.mirror/Apache_OpenOffice_#{version}_MacOS_x86-64_install_#{language}.dmg"
   name "Apache OpenOffice"
   desc "Free and open-source productivity suite"
   homepage "https://www.openoffice.org/"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "OpenOffice.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/OpenOffice.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/OpenOffice.app"]
   end
 
   zap trash: "~/Library/Application Support/OpenOffice"

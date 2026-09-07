@@ -14,8 +14,8 @@ cask "go-shiori" do
 
   binary "shiori"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/shiori"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/shiori"]
   end
 
   zap trash: "~/Library/ApplicationSupport/shiori"

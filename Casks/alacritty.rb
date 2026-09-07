@@ -12,7 +12,7 @@ cask "alacritty" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Alacritty.app"
   binary "#{appdir}/Alacritty.app/Contents/MacOS/alacritty"
@@ -28,8 +28,8 @@ cask "alacritty" do
   fish_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/alacritty.fish"
   zsh_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/_alacritty"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Alacritty.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Alacritty.app"]
   end
 
   zap trash: [

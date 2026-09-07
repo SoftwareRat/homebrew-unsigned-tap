@@ -14,7 +14,7 @@ cask "makemkv" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "MakeMKV.app"
   binary "#{appdir}/MakeMKV.app/Contents/MacOS/makemkvcon"
@@ -22,8 +22,8 @@ cask "makemkv" do
   binary "#{appdir}/MakeMKV.app/Contents/MacOS/mmgplsrv"
   binary "#{appdir}/MakeMKV.app/Contents/MacOS/sdftool"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/MakeMKV.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/MakeMKV.app"]
   end
 
   zap trash: [

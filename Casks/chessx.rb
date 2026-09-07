@@ -2,8 +2,7 @@ cask "chessx" do
   version "1.6.10"
   sha256 "525927ea622b1834694a5582370a5883cc7bc7dd50e449be96c8c8d553fc9870"
 
-  url "https://downloads.sourceforge.net/chessx/chessx/#{version.csv.second || version.csv.first}/chessx-#{version.csv.first}.dmg",
-      verified: "downloads.sourceforge.net/chessx/"
+  url "https://downloads.sourceforge.net/chessx/chessx/#{version.csv.second || version.csv.first}/chessx-#{version.csv.first}.dmg"
   name "ChessX"
   desc "Chess database"
   homepage "https://chessx.sourceforge.io/"
@@ -21,12 +20,12 @@ cask "chessx" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "ChessX.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/ChessX.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/ChessX.app"]
   end
 
   zap trash: [

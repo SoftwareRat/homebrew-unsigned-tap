@@ -2,8 +2,7 @@ cask "vmpk" do
   version "0.9.1"
   sha256 "887d3d0ad99c1ee98b8c37b4381aee1073734b245a6d14ad2e7f3632a15ec1e1"
 
-  url "https://downloads.sourceforge.net/vmpk/#{version.major_minor_patch}/vmpk-#{version}-mac-x64.dmg",
-      verified: "downloads.sourceforge.net/vmpk/"
+  url "https://downloads.sourceforge.net/vmpk/#{version.major_minor_patch}/vmpk-#{version}-mac-x64.dmg"
   name "VMPK"
   desc "Virtual MIDI Piano Keyboard"
   homepage "https://vmpk.sourceforge.io/"
@@ -16,11 +15,12 @@ cask "vmpk" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   depends_on formula: "fluid-synth"
+  depends_on :macos
 
   app "vmpk.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/vmpk.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/vmpk.app"]
   end
 
   zap trash: [

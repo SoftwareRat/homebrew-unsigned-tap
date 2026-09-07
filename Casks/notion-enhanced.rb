@@ -2,18 +2,19 @@ cask "notion-enhanced" do
   version "2.0.18-1"
   sha256 "e54a37053ed52a42ecbb4ed22a0ce50498ecc1efb3bff5b134099a56a8569309"
 
-  url "https://github.com/notion-enhancer/notion-repackaged/releases/download/v#{version}/Notion-Enhanced-#{version}.dmg",
-      verified: "github.com/notion-enhancer/"
+  url "https://github.com/notion-enhancer/notion-repackaged/releases/download/v#{version}/Notion-Enhanced-#{version}.dmg"
   name "Notion Enhanced"
   desc "Enhancer/customiser for the all-in-one productivity workspace notion.so"
   homepage "https://notion-enhancer.github.io/"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Notion Enhanced.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Notion Enhanced.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Notion Enhanced.app"]
   end
 
   zap trash: [

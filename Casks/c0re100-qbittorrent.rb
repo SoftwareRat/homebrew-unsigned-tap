@@ -15,12 +15,12 @@ cask "c0re100-qbittorrent" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "qbittorrent"
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "qbittorrent.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/qbittorrent.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/qbittorrent.app"]
   end
 
   zap trash: [

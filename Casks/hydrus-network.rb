@@ -2,8 +2,7 @@ cask "hydrus-network" do
   version "636"
   sha256 "08d9ba060c090f513d66ff89da50767260726327fdfbc3d7a70ad8fc90c79b89"
 
-  url "https://github.com/hydrusnetwork/hydrus/releases/download/v#{version}/Hydrus.Network.#{version}.-.macOS.-.App.zip",
-      verified: "github.com/hydrusnetwork/hydrus/"
+  url "https://github.com/hydrusnetwork/hydrus/releases/download/v#{version}/Hydrus.Network.#{version}.-.macOS.-.App.zip"
   name "hydrus network"
   desc "Booru-style media tagger"
   homepage "https://hydrusnetwork.github.io/hydrus/"
@@ -21,10 +20,12 @@ cask "hydrus-network" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Hydrus Network.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Hydrus Network.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Hydrus Network.app"]
   end
 
   zap trash: "~/Library/Hydrus"

@@ -2,8 +2,7 @@ cask "xaos" do
   version "4.3.4"
   sha256 "016e34f6b8dc42498acaa90bf92ce3dce5fc9ae2963e01c8ce459f57f6b1bb94"
 
-  url "https://github.com/xaos-project/XaoS/releases/download/release-#{version}/XaoS-#{version}.dmg",
-      verified: "github.com/xaos-project/XaoS/"
+  url "https://github.com/xaos-project/XaoS/releases/download/release-#{version}/XaoS-#{version}.dmg"
   name "GNU XaoS"
   desc "Real-time interactive fractal zoomer"
   homepage "https://xaos-project.github.io/"
@@ -15,12 +14,12 @@ cask "xaos" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "XaoS.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/XaoS.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/XaoS.app"]
   end
 
   zap trash: "~/Library/Preferences/net.sourceforge.xaos.XaoS.plist"

@@ -2,8 +2,7 @@ cask "duckietv" do
   version "1.1.5"
   sha256 "9c2f72c011cd477071e51238d5bfa0c202babdd263c1e4ea6b3d4e4605da2907"
 
-  url "https://github.com/SchizoDuckie/DuckieTV/releases/download/#{version}/DuckieTV-#{version}-OSX-x64.pkg",
-      verified: "github.com/SchizoDuckie/DuckieTV/"
+  url "https://github.com/SchizoDuckie/DuckieTV/releases/download/#{version}/DuckieTV-#{version}-OSX-x64.pkg"
   name "duckieTV"
   desc "Tool to track TV shows with semi-automagic torrent integration"
   homepage "https://schizoduckie.github.io/DuckieTV/"
@@ -27,12 +26,14 @@ cask "duckietv" do
     end
   end
 
+  depends_on :macos
+
   pkg "DuckieTV-#{version}-OSX-x64.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/DuckieTV-#{version}-OSX-x64.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/DuckieTV-#{version}-OSX-x64.pkg"]
   end
 
   uninstall pkgutil: "tv.duckie.base.pkg",

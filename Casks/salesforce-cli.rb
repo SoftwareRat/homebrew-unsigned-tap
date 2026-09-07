@@ -5,8 +5,7 @@ cask "salesforce-cli" do
   sha256 arm:   "6674ad8339936311622841bbc7283c433195c97d0cb35565c7c8a5384d2ec89c",
          intel: "c58fbe183b8bf55c5a7c7b3f5917aedbc5cdbae528cfa383579b301f2b633eff"
 
-  url "https://github.com/salesforcecli/cli/releases/download/#{version.csv.first}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg",
-      verified: "github.com/salesforcecli/cli/"
+  url "https://github.com/salesforcecli/cli/releases/download/#{version.csv.first}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"
   name "Salesforce CLI"
   desc "CLI tools for Salesforce"
   homepage "https://developer.salesforce.com/tools/salesforcecli"
@@ -20,12 +19,14 @@ cask "salesforce-cli" do
     end
   end
 
+  depends_on :macos
+
   pkg "sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/sf-v#{version.csv.first}-#{version.csv.second}-#{arch}.pkg"]
   end
 
   uninstall pkgutil: "com.salesforce.cli",

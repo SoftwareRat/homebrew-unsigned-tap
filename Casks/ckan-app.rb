@@ -15,11 +15,12 @@ cask "ckan-app" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   depends_on cask: "mono-mdk"
+  depends_on :macos
 
   app "CKAN.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/CKAN.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/CKAN.app"]
   end
 
   zap trash: "~/.local/share/CKAN"

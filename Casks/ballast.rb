@@ -2,20 +2,19 @@ cask "ballast" do
   version "2.0.0"
   sha256 "ec96d590fd9dbe38fe50de006160d4ff2bd10187c4b011c1f5c5ea741044904a"
 
-  url "https://github.com/jamsinclair/ballast/releases/download/v#{version}/ballast-v#{version}.zip",
-      verified: "github.com/jamsinclair/ballast/"
+  url "https://github.com/jamsinclair/ballast/releases/download/v#{version}/ballast-v#{version}.zip"
   name "ballast"
   desc "Status Bar app to keep the audio balance from drifting"
   homepage "https://jamsinclair.nz/ballast"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "ballast.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/ballast.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/ballast.app"]
   end
 
   uninstall launchctl: "nz.jamsinclair.ballast-LaunchAtLoginHelper",

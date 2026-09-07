@@ -5,12 +5,12 @@ cask "mater" do
 
     url "https://github.com/jasonlong/mater/releases/download/v#{version}/Mater-#{version}-arm64.dmg"
 
-    depends_on macos: ">= :monterey"
+    depends_on macos: :monterey
 
     app "Mater.app"
 
-    postflight do
-      system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Mater.app"
+    postflight_steps do
+      run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Mater.app"]
     end
   end
   on_intel do
@@ -23,7 +23,7 @@ cask "mater" do
       skip "Legacy version"
     end
 
-    depends_on macos: ">= :catalina"
+    depends_on macos: :catalina
 
     app "Mater-darwin-x64/Mater.app"
   end

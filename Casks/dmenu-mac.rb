@@ -14,11 +14,13 @@ cask "dmenu-mac" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "dmenu-mac.app"
   binary "#{appdir}/dmenu-mac.app/Contents/Resources/dmenu-mac"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/dmenu-mac.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/dmenu-mac.app"]
   end
 
   zap trash: [

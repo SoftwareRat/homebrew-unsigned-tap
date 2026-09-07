@@ -14,12 +14,12 @@ cask "orangedrangon-android-messages" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Android Messages.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Android Messages.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Android Messages.app"]
   end
 
   zap trash: "~/Library/Application Support/android-messages-desktop"

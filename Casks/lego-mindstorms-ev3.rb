@@ -3,8 +3,7 @@ cask "lego-mindstorms-ev3" do
   version "1.4.4"
   sha256 "cb912667968e08604e755278d0e2f2fc69556349938cb36b708c5ecd8c74af29"
 
-  url "https://le-www-live-s.legocdn.com/downloads/LMS-EV3/LMS-EV3_Full-setup_#{version}_en-us_osx.dmg",
-      verified: "le-www-live-s.legocdn.com/downloads/LMS-EV3/"
+  url "https://le-www-live-s.legocdn.com/downloads/LMS-EV3/LMS-EV3_Full-setup_#{version}_en-us_osx.dmg"
   name "Lego Mindstorms EV3 Home Edition"
   desc "Programmable robotics construction set"
   homepage "https://www.lego.com/en-us/mindstorms"
@@ -14,12 +13,14 @@ cask "lego-mindstorms-ev3" do
     strategy :header_match
   end
 
+  depends_on :macos
+
   pkg "LEGO MINDSTORMS EV3 Home Edition.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/LEGO MINDSTORMS EV3 Home Edition.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/LEGO MINDSTORMS EV3 Home Edition.pkg"]
   end
 
   uninstall pkgutil: [

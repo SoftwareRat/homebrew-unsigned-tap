@@ -2,8 +2,7 @@ cask "lyx" do
   version "2.4.4"
   sha256 "8f92befe0df9da6f251a5a04a8ef536a03a354cfbb4e6f87dd80e76fa92871c0"
 
-  url "https://ftp.lip6.fr/pub/lyx/bin/#{version.major_minor_patch}/LyX-#{version}+qt5-x86_64-arm64-cocoa.dmg",
-      verified: "ftp.lip6.fr/pub/lyx/bin/"
+  url "https://ftp.lip6.fr/pub/lyx/bin/#{version.major_minor_patch}/LyX-#{version}+qt5-x86_64-arm64-cocoa.dmg"
   name "LyX"
   desc "GUI document processor based on the LaTeX typesetting system"
   homepage "https://www.lyx.org/"
@@ -15,6 +14,8 @@ cask "lyx" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "LyX.app"
   binary "#{appdir}/LyX.app/Contents/MacOS/inkscape", target: "lyx-inkscape"
   binary "#{appdir}/LyX.app/Contents/MacOS/lyx"
@@ -24,8 +25,8 @@ cask "lyx" do
   binary "#{appdir}/LyX.app/Contents/MacOS/maxima", target: "lyx-maxima"
   binary "#{appdir}/LyX.app/Contents/MacOS/tex2lyx"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/LyX.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/LyX.app"]
   end
 
   zap trash: [

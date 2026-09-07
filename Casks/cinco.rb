@@ -2,8 +2,7 @@ cask "cinco" do
   version "2.0.1"
   sha256 "6b8e07c76c896ee5b79708f3317deb1197ce6c1f87acd45ee740c4423b5a8645"
 
-  url "https://ls5download.cs.tu-dortmund.de/cinco/releases/#{version}/cinco-#{version}-macos.dmg",
-      verified: "ls5download.cs.tu-dortmund.de/cinco/releases/"
+  url "https://ls5download.cs.tu-dortmund.de/cinco/releases/#{version}/cinco-#{version}-macos.dmg"
   name "Cinco"
   desc "Generator-driven Eclipse IDE for domain-specific graphical modelling tools"
   homepage "https://cinco.scce.info/"
@@ -13,12 +12,14 @@ cask "cinco" do
     regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
   end
 
+  depends_on :macos
+
   pkg "Install Cinco.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/Install Cinco.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/Install Cinco.pkg"]
   end
 
   uninstall quit:    "de.jabc.cinco.meta.product.product",

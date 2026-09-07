@@ -49,8 +49,8 @@ Homebrew/homebrew-cask repository.
    the app launches without a Gatekeeper prompt:
 
    ```ruby
-   postflight do
-     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/<AppName>.app"
+   postflight_steps do
+     run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/AppName.app"]
    end
    ```
 

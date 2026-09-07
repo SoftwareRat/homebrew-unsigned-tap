@@ -5,8 +5,7 @@ cask "librewolf" do
   sha256 arm:   "9a4f3d0fc7b67f10e416a4896aa4be82e7f13cacf847f5ba68e9fc604323ef67",
          intel: "45f9a2d35fb6a0ce4bc737ce5da2a0bb26a710ace12b8117f80adb3e4ee2e6f3"
 
-  url "https://codeberg.org/api/packages/librewolf/generic/librewolf/#{version.tr(",", "-")}/librewolf-#{version.tr(",", "-")}-macos-#{arch}-package.dmg",
-      verified: "codeberg.org/api/packages/librewolf/generic/librewolf/"
+  url "https://codeberg.org/api/packages/librewolf/generic/librewolf/#{version.tr(",", "-")}/librewolf-#{version.tr(",", "-")}-macos-#{arch}-package.dmg"
   name "LibreWolf"
   desc "Web browser"
   homepage "https://librewolf.net/"
@@ -27,6 +26,8 @@ cask "librewolf" do
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/librewolf.wrapper.sh"
 
+  depends_on :macos
+
   app "LibreWolf.app"
   binary shimscript, target: "librewolf"
 
@@ -37,8 +38,8 @@ cask "librewolf" do
     EOS
   end
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/LibreWolf.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/LibreWolf.app"]
   end
 
   zap trash: [

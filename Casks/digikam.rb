@@ -5,8 +5,7 @@ cask "digikam" do
   sha256 arm:   "d9dd98b78d0012333691a80a4d9f0c4434c88feac2d691f7b04619c4ea3128ce",
          intel: "a772b9948be6b1c673bed7e0a5db63a0f862570e9ecfc89254eb1d4a624e24eb"
 
-  url "https://download.kde.org/stable/digikam/#{version}/digiKam-#{version}-#{arch}.pkg",
-      verified: "kde.org/stable/digikam/"
+  url "https://download.kde.org/stable/digikam/#{version}/digiKam-#{version}-#{arch}.pkg"
   name "digiKam"
   desc "Digital photo manager"
   homepage "https://www.digikam.org/"
@@ -16,12 +15,14 @@ cask "digikam" do
     regex(%r{href=["']?v?(\d+(?:\.\d+)+)/?["' >]}i)
   end
 
+  depends_on :macos
+
   pkg "digiKam-#{version}-#{arch}.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/digiKam-#{version}-#{arch}.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/digiKam-#{version}-#{arch}.pkg"]
   end
 
   uninstall pkgutil: [

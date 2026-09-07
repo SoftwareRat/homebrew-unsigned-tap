@@ -42,9 +42,10 @@ cask "vlc@nightly" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "vlc"
-
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/vlc.wrapper.sh"
+
+  depends_on :macos
 
   app "VLC.app"
   binary shimscript, target: "vlc"
@@ -56,8 +57,8 @@ cask "vlc@nightly" do
     EOS
   end
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/VLC.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/VLC.app"]
   end
 
   zap trash: [

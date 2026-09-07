@@ -12,12 +12,12 @@ cask "tiddly" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "TiddlyDesktop-mac#{arch}-v#{version}/TiddlyDesktop.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/TiddlyDesktop.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/TiddlyDesktop.app"]
   end
 
   zap trash: [

@@ -12,12 +12,12 @@ cask "galaxybudsclient" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   pkg "GalaxyBudsClient_macOS_#{arch}.pkg"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/GalaxyBudsClient_macOS_#{arch}.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/GalaxyBudsClient_macOS_#{arch}.pkg"]
   end
 
   uninstall pkgutil: "me.timschneeberger.galaxybudsclient"

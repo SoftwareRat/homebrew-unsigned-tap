@@ -2,8 +2,7 @@ cask "quassel" do
   version "0.14.0"
   sha256 "cb8b195cd9961c8af26a9df7f5411aa1f23324d1ee717f7c4df8abc2b70021a2"
 
-  url "https://github.com/quassel/quassel/releases/download/#{version}/QuasselMono-MacOS-#{version}.dmg",
-      verified: "github.com/quassel/quassel/"
+  url "https://github.com/quassel/quassel/releases/download/#{version}/QuasselMono-MacOS-#{version}.dmg"
   name "Quassel"
   desc "IRC client"
   homepage "https://quassel-irc.org/"
@@ -15,10 +14,12 @@ cask "quassel" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Quassel.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Quassel.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Quassel.app"]
   end
 
   zap trash: [

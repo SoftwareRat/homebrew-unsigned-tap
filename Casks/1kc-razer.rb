@@ -6,19 +6,20 @@ cask "1kc-razer" do
   name "Razer macOS"
   desc "Open source colour effects manager for Razer devices"
   homepage "https://github.com/1kc/razer-macos"
-  depends_on :macos
 
   livecheck do
     url :url
     strategy :github_latest
   end
 
+  depends_on :macos
+
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   app "Razer macOS.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Razer macOS.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Razer macOS.app"]
   end
 
   zap trash: [

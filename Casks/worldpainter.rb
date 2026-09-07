@@ -14,10 +14,12 @@ cask "worldpainter" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "WorldPainter.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/WorldPainter.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/WorldPainter.app"]
   end
 
   zap trash: "~/Library/Application Support/WorldPainter"

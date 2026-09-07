@@ -9,10 +9,12 @@ cask "discretescroll" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "DiscreteScroll.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/DiscreteScroll.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/DiscreteScroll.app"]
   end
 
   zap trash: "~/Library/Preferences/com.emreyolcu.DiscreteScroll.plist"

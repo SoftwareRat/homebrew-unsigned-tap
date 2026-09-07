@@ -37,6 +37,7 @@ jobs:
       # force-push or direct push to a branch with no base to compare).
       - name: Determine changed casks
         id: changed
+        shell: bash
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             BASE="${{ github.event.pull_request.base.sha }}"
@@ -44,28 +45,33 @@ jobs:
             BASE="${{ github.event.before }}"
           fi
 
-          if git rev-parse --verify "$BASE" >/dev/null 2>&1; then
+          if git rev-parse --verify "$BASE^{commit}" >/dev/null 2>&1; then
             FILES=$(git diff --name-only "$BASE" HEAD -- 'Casks/*.rb' || true)
+
+            # Only keep files that still exist in the checkout.
+            # This excludes removed casks from anything executed later.
+            FILES=$(printf '%s\n' "$FILES" | while IFS= read -r f; do
+              [ -f "$f" ] && printf '%s\n' "$f"
+            done)
           else
             FILES=""
           fi
 
           if [ -z "$FILES" ]; then
-            # Fallback: check all casks
-            FILES=$(find Casks -name '*.rb' | sort)
-            echo "No diff available — checking all casks."
+            FILES=$(find Casks -name '*.rb' -type f | sort)
+            echo "No usable diff — checking all existing casks."
           fi
 
-          # Convert file paths to cask tokens (basename without .rb)
+          # Convert file paths to cask tokens.
           TOKENS=""
-          for f in $FILES; do
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
             token=$(basename "$f" .rb)
             TOKENS="$TOKENS $token"
-          done
+          done <<< "$FILES"
 
           echo "tokens=$TOKENS" >> "$GITHUB_OUTPUT"
           echo "Casks to check:$TOKENS"
-
       - name: brew style
         if: steps.changed.outputs.tokens != ''
         run: |

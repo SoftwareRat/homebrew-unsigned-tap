@@ -2,8 +2,7 @@ cask "wire" do
   version "3.40.5442"
   sha256 "0711a401b925e6481e1eae1d8084d8b14d5f5c563c5c358439fc231e793a5ed4"
 
-  url "https://github.com/wireapp/wire-desktop/releases/download/macos%2F#{version}/Wire.pkg",
-      verified: "github.com/wireapp/wire-desktop/"
+  url "https://github.com/wireapp/wire-desktop/releases/download/macos%2F#{version}/Wire.pkg"
   name "Wire"
   desc "Collaboration platform focusing on security"
   homepage "https://wire.com/"
@@ -25,12 +24,14 @@ cask "wire" do
     end
   end
 
+  depends_on :macos
+
   pkg "Wire.pkg"
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/Wire.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/Wire.pkg"]
   end
 
   uninstall signal:  [

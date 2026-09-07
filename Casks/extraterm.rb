@@ -2,8 +2,7 @@ cask "extraterm" do
   version "0.81.4"
   sha256 "214bd9bb54fcb8c8cd97c8ea401898adac1a205b5fba74b406178757dbeae814"
 
-  url "https://github.com/sedwards2009/extraterm/releases/download/v#{version}/ExtratermQt_#{version}.dmg",
-      verified: "github.com/sedwards2009/extraterm/"
+  url "https://github.com/sedwards2009/extraterm/releases/download/v#{version}/ExtratermQt_#{version}.dmg"
   name "Extraterm"
   desc "Swiss army chainsaw of terminal emulators"
   homepage "https://extraterm.org/"
@@ -15,10 +14,12 @@ cask "extraterm" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "ExtratermQt.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/ExtratermQt.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/ExtratermQt.app"]
   end
 
   zap trash: [

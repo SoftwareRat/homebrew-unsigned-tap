@@ -15,11 +15,12 @@ cask "mumble@snapshot" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   conflicts_with cask: "mumble"
+  depends_on :macos
 
   app "Mumble.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Mumble.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Mumble.app"]
   end
 
   zap trash: [

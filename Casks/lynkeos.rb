@@ -2,8 +2,7 @@ cask "lynkeos" do
   version "3.10"
   sha256 "18b37ebcf2ebcb08875e2ce55680050b661122147d5ffa15d7090660b1714394"
 
-  url "https://downloads.sourceforge.net/lynkeos/lynkeos/#{version}/Lynkeos-App-#{version.dots_to_hyphens}.zip",
-      verified: "downloads.sourceforge.net/lynkeos/"
+  url "https://downloads.sourceforge.net/lynkeos/lynkeos/#{version}/Lynkeos-App-#{version.dots_to_hyphens}.zip"
   name "Lynkeos"
   desc "Astronomical webcam image processing software"
   homepage "https://lynkeos.sourceforge.io/"
@@ -15,10 +14,12 @@ cask "lynkeos" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Lynkeos-App-#{version.dots_to_hyphens}/Lynkeos.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Lynkeos.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Lynkeos.app"]
   end
 
   zap trash: [

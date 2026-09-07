@@ -9,12 +9,12 @@ cask "nuage" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "Nuage.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Nuage.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Nuage.app"]
   end
 
   zap trash: [

@@ -31,12 +31,12 @@ cask "powershell@preview" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   pkg "powershell-#{version}-osx-#{arch}.pkg"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/powershell-#{version}-osx-#{arch}.pkg"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/powershell-#{version}-osx-#{arch}.pkg"]
   end
 
   uninstall pkgutil: "com.microsoft.powershell-preview",

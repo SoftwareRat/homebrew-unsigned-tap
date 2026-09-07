@@ -5,8 +5,7 @@ cask "zap" do
   sha256 arm:   "3b3c6c8b105a33cb2a7d718e7f9aa41418a6d8aae3887d94a42523b5eeac723b",
          intel: "a3d246125dd6e576036af8fb29f90377fc72a0a5df8c89c54711972b449582c7"
 
-  url "https://github.com/zaproxy/zaproxy/releases/download/v#{version}/ZAP_#{version}#{arch}.dmg",
-      verified: "github.com/zaproxy/zaproxy/"
+  url "https://github.com/zaproxy/zaproxy/releases/download/v#{version}/ZAP_#{version}#{arch}.dmg"
   name "Zed Attack Proxy"
   name "ZAP"
   desc "Free and open source web app scanner"
@@ -19,10 +18,12 @@ cask "zap" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "ZAP.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/ZAP.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/ZAP.app"]
   end
 
   zap trash: [

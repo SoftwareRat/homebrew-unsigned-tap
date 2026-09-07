@@ -2,8 +2,7 @@ cask "pynsource" do
   version "1.84"
   sha256 "6c979c404c388bd712c3507d1f9494a11586106179deaba5a2ea83207716a112"
 
-  url "https://github.com/abulka/pynsource/releases/download/version-#{version}/pynsource-macos-version-#{version}.zip",
-      verified: "github.com/abulka/pynsource/"
+  url "https://github.com/abulka/pynsource/releases/download/version-#{version}/pynsource-macos-version-#{version}.zip"
   name "Pynsource"
   desc "Reverse engineer Python source code into UML"
   homepage "https://www.pynsource.com/"
@@ -15,10 +14,12 @@ cask "pynsource" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Pynsource.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Pynsource.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Pynsource.app"]
   end
 
   zap trash: [

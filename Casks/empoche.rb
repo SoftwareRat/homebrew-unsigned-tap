@@ -2,8 +2,7 @@ cask "empoche" do
   version "0.4.5"
   sha256 "8a4c57928da42a3ed60b1e0648b24614f84ecc582f3b9c9ee04cd5323e58ea4f"
 
-  url "https://empoche-desktop.s3.amazonaws.com/Empoche-#{version}-mac.zip",
-      verified: "empoche-desktop.s3.amazonaws.com/"
+  url "https://empoche-desktop.s3.amazonaws.com/Empoche-#{version}-mac.zip"
   name "Empoche"
   desc "Automatic time-tracking with task and project management"
   homepage "https://empoche.com/"
@@ -15,10 +14,12 @@ cask "empoche" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Empoche.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Empoche.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Empoche.app"]
   end
 
   zap trash: [

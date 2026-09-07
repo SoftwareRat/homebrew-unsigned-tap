@@ -10,8 +10,8 @@ cask "write" do
   livecheck do
     url "https://www.styluslabs.com/download/write-dmg"
     regex(/write[._-]?v?(\d+)\.dmg/i)
-    strategy :header_match do |header, regex|
-      match = header["location"]&.match(regex)
+    strategy :header_match do |headers, regex|
+      match = headers["location"]&.match(regex)
       next if match.blank?
 
       match[1].include?(".") ? match[1] : match[1].sub(/(\d)(\d)(\d)/, '\1.\2.\3')
@@ -20,10 +20,12 @@ cask "write" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Write.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Write.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Write.app"]
   end
 
   zap trash: [

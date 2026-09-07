@@ -16,11 +16,12 @@ cask "clover-configurator" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   auto_updates true
+  depends_on :macos
 
   app "Clover Configurator.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Clover Configurator.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Clover Configurator.app"]
   end
 
   zap trash: [

@@ -2,8 +2,7 @@ cask "bino" do
   version "1.6.6"
   sha256 "31f0c7590511c9c5bfb92f488de82565bdc4c945b934a1e8cd40a110beb49fd5"
 
-  url "http://devernay.free.fr/hacks/bino/Bino-#{version}-OSX-Mavericks-GPL.zip",
-      verified: "devernay.free.fr/hacks/bino/"
+  url "http://devernay.free.fr/hacks/bino/Bino-#{version}-OSX-Mavericks-GPL.zip"
   name "Bino"
   desc "Video player"
   homepage "https://bino3d.org/"
@@ -15,10 +14,12 @@ cask "bino" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Bino.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Bino.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Bino.app"]
   end
 
   zap trash: [

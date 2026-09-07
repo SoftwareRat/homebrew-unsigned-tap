@@ -2,8 +2,7 @@ cask "hydrogen" do
   version "1.2.6"
   sha256 "05ba60a4c71745c591b22f472b80c79fdcdd0ef38bb3ef0b08b313d722e76811"
 
-  url "https://github.com/hydrogen-music/hydrogen/releases/download/#{version}/Hydrogen-#{version}.dmg",
-      verified: "github.com/hydrogen-music/hydrogen/"
+  url "https://github.com/hydrogen-music/hydrogen/releases/download/#{version}/Hydrogen-#{version}.dmg"
   name "Hydrogen"
   desc "Drum machine and sequencer"
   homepage "http://www.hydrogen-music.org/"
@@ -15,10 +14,12 @@ cask "hydrogen" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Hydrogen.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Hydrogen.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Hydrogen.app"]
   end
 
   zap trash: "~/Library/Application Support/Hydrogen"

@@ -16,8 +16,8 @@ cask "7777" do
 
   binary "7777"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{staged_path}/7777"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{staged_path}/7777"]
   end
 
   # No zap stanza required

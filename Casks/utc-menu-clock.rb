@@ -15,12 +15,12 @@ cask "utc-menu-clock" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
 
   app "UTCMenuClock.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/UTCMenuClock.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/UTCMenuClock.app"]
   end
 
   zap trash: "~/Library/Preferences/net.retina.UTCMenuClock.plist"

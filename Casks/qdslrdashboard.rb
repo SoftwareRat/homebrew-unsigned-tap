@@ -2,8 +2,7 @@ cask "qdslrdashboard" do
   version "3.6.12"
   sha256 "dc009a297d640f548d73beac6f40c6a1b2d5d043750748e2faca74c1f716c236"
 
-  url "https://files.lrtimelapse.com/dslrdashboard/V#{version}/qDslrDashboard_V#{version}_macOS_x64.dmg",
-      verified: "files.lrtimelapse.com/dslrdashboard/"
+  url "https://files.lrtimelapse.com/dslrdashboard/V#{version}/qDslrDashboard_V#{version}_macOS_x64.dmg"
   name "qDslrDashboard"
   desc "Application for controlling Nikon, Canon and Sony cameras"
   homepage "https://dslrdashboard.info/"
@@ -21,10 +20,12 @@ cask "qdslrdashboard" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "qDslrDashboard.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/qDslrDashboard.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/qDslrDashboard.app"]
   end
 
   zap trash: [

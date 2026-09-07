@@ -21,12 +21,12 @@ cask "transmission@nightly" do
     "transmission",
     "transmission@beta",
   ]
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Transmission.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Transmission.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Transmission.app"]
   end
 
   zap trash: [

@@ -10,8 +10,7 @@ cask "wings3d" do
     sha256 "dbb1bbb229c3a3737fc2558d7a64996780dada3da3c75e46bc357789dde8092a"
   end
 
-  url "https://downloads.sourceforge.net/wings/#{version}/wings-#{version}-macos-#{arch}.dmg",
-      verified: "sourceforge.net/wings/"
+  url "https://downloads.sourceforge.net/wings/#{version}/wings-#{version}-macos-#{arch}.dmg"
   name "Wings 3D"
   desc "Advanced subdivision modeller"
   homepage "https://www.wings3d.com/"
@@ -23,10 +22,12 @@ cask "wings3d" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "Wings3D.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Wings3D.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Wings3D.app"]
   end
 
   zap trash: "~/Library/Caches/Wings3D"

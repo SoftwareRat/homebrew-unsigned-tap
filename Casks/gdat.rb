@@ -2,8 +2,7 @@ cask "gdat" do
   version "2026r01,1YUy5QFPn4-5fEbgbn5EmGXq4gegku5_8"
   sha256 :no_check # required as upstream package is updated in-place
 
-  url "https://drive.google.com/uc?export=download&id=#{version.csv.second}",
-      verified: "drive.google.com/uc?export=download&id=#{version.csv.second}"
+  url "https://drive.google.com/uc?export=download&id=#{version.csv.second}"
   name "Genealogical DNA Analysis Tool"
   desc "App that utilises autosomal DNA to aid in the research of family trees"
   homepage "https://www.getgdat.com/"
@@ -21,13 +20,13 @@ cask "gdat" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
   container nested: "macOS 64 bit/Genealogical DNA Analysis Tool.app.tar"
 
   app "Genealogical DNA Analysis Tool.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Genealogical DNA Analysis Tool.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Genealogical DNA Analysis Tool.app"]
   end
 
   zap trash: [

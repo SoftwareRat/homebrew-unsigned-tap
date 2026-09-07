@@ -21,13 +21,13 @@ cask "syntax-highlight" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   auto_updates true
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Syntax Highlight.app"
   binary "#{appdir}/Syntax Highlight.app/Contents/Resources/syntax_highlight_cli"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Syntax Highlight.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/Syntax Highlight.app"]
   end
 
   zap trash: [

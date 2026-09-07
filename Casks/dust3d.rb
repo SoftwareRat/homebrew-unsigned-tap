@@ -2,8 +2,7 @@ cask "dust3d" do
   version "1.0.0-rc.9"
   sha256 "9d2a251f26bcdcbe671677d48743f0c617be63c78f5c9291bd5b45e0dbb49a7f"
 
-  url "https://github.com/huxingyi/dust3d/releases/download/#{version}/dust3d-#{version}.dmg",
-      verified: "github.com/huxingyi/dust3d/"
+  url "https://github.com/huxingyi/dust3d/releases/download/#{version}/dust3d-#{version}.dmg"
   name "Dust3D"
   desc "Open-source 3D modelling software"
   homepage "https://dust3d.org/"
@@ -17,10 +16,12 @@ cask "dust3d" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "dust3d-#{version}.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/dust3d-#{version}.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/dust3d-#{version}.app"]
   end
 
   zap trash: "~/Library/Saved Application State/com.yourcompany.dust3d.savedState"

@@ -2,8 +2,7 @@ cask "openboardview" do
   version "9.95.2"
   sha256 "0d70f9a2c87ff40217385976d51795f21cb45476383c8b36f1e380e3cd2b6b40"
 
-  url "https://github.com/OpenBoardView/OpenBoardView/releases/download/#{version}/OpenBoardView-#{version}-Darwin-x86_64.dmg",
-      verified: "github.com/OpenBoardView/OpenBoardView/"
+  url "https://github.com/OpenBoardView/OpenBoardView/releases/download/#{version}/OpenBoardView-#{version}-Darwin-x86_64.dmg"
   name "OpenBoardView"
   desc "File viewer for .brd files"
   homepage "https://openboardview.org/"
@@ -15,10 +14,12 @@ cask "openboardview" do
 
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
+  depends_on :macos
+
   app "openboardview.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/openboardview.app"
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-r", "-d", "com.apple.quarantine", "#{appdir}/openboardview.app"]
   end
 
   zap trash: "~/Library/Application Support/OpenBoardView"
