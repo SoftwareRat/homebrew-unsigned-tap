@@ -1,6 +1,6 @@
 cask "alacritty" do
-  version "0.16.1"
-  sha256 "28552c9398b732b23aee48206815d29f3707028c6ca9a82fd8b4c0d05caa940a"
+  version "0.17.0"
+  sha256 "ad8d7de35fb38e43184776cac6dfee05ca325caa0b6639a06a55e54e4b026620"
 
   url "https://github.com/alacritty/alacritty/releases/download/v#{version}/Alacritty-v#{version}.dmg"
   name "Alacritty"
@@ -12,7 +12,7 @@ cask "alacritty" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
 
   app "Alacritty.app"
   binary "#{appdir}/Alacritty.app/Contents/MacOS/alacritty"
@@ -28,8 +28,10 @@ cask "alacritty" do
   fish_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/alacritty.fish"
   zsh_completion "#{appdir}/Alacritty.app/Contents/Resources/completions/_alacritty"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Alacritty.app"
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/xattr", args: ["-rd", "com.apple.quarantine", "{{appdir}}/Alacritty.app"]
+    end
   end
 
   zap trash: [
