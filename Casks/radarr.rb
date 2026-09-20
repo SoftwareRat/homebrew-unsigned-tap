@@ -21,12 +21,15 @@ cask "radarr" do
   # Upstream disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   auto_updates true
-  depends_on macos: ">= :big_sur"
+  depends_on :macos
 
   app "Radarr.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Radarr.app"
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Radarr.app"]
+      run "/usr/bin/xattr", args: ["-rd", "com.apple.quarantine", "{{appdir}}/Radarr.app"]
+    end
   end
 
   zap trash: "~/.config/Radarr"
