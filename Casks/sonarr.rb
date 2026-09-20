@@ -6,10 +6,10 @@ cask "sonarr" do
          intel: "b17b90e163e89bb438c1ffd896ead16ffce96b6fb27c05dc96acef80bc84e06f"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on :macos
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on :macos
   end
 
   url "https://github.com/Sonarr/Sonarr/releases/download/v#{version}/Sonarr.main.#{version}.osx-#{arch}-app.zip",
@@ -30,8 +30,11 @@ cask "sonarr" do
 
   app "Sonarr.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Sonarr.app"
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Sonarr.app"]
+      run "/usr/bin/xattr", args: ["-rd", "com.apple.quarantine", "{{appdir}}/Sonarr.app"]
+    end
   end
 
   zap trash: "~/.config/Sonarr"
