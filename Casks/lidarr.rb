@@ -6,10 +6,10 @@ cask "lidarr" do
          intel: "8450993360e485fc083204a84726fb002b6dfac54c29d583f8d4a22c3a59cf30"
 
   on_arm do
-    depends_on macos: ">= :big_sur"
+    depends_on :macos
   end
   on_intel do
-    depends_on macos: ">= :catalina"
+    depends_on :macos
   end
 
   url "https://github.com/lidarr/Lidarr/releases/download/v#{version}/Lidarr.master.#{version}.osx-app-core-#{arch}.zip",
@@ -31,8 +31,11 @@ cask "lidarr" do
 
   app "Lidarr.app"
 
-  postflight do
-    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/Lidarr.app"
+  postflight_steps do
+    on_macos do
+      run "/usr/bin/codesign", args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Lidarr.app"]
+      run "/usr/bin/xattr", args: ["-rd", "com.apple.quarantine", "{{appdir}}/Lidarr.app"]
+    end
   end
 
   zap trash: "~/.config/Lidarr/"
